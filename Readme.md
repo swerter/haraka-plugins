@@ -13,6 +13,8 @@ A few plugins to be used with haraka
 - maildir.js
 - outbound.js
 
+See docs folder for more information about the individual plugins.
+
 ## Postgres plugins
 
 ### Installation
@@ -26,37 +28,15 @@ A few plugins to be used with haraka
 A plugin to check if a user is authorized to send emails. Checks the password in
 the database. Is being used for sending out emails.
 
-##### Example Database
-
-A database example would be:
-
-    table: mailboxes
-
-    id | full_address | password
 
 #### rcpt_to.postgres.resolve_alias.js
 A plugin to check if an alias exists for a recipient and if so resolve the alias.
 Used when receiving emails.
 
-##### Example Database
-
-A database example would be:
-
-    table: aliases
-
-    id | full_address | destination
 
 #### rcpt_to.postgres.resolve_recipient.js
 A plugin to check if a recipient is present in the database.
 Used when receiving emails.
-
-##### Example Database
-
-A database example would be:
-
-    table: mailboxes
-
-    id | full_address | password
 
 
 ## Other plugins
