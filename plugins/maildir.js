@@ -60,15 +60,17 @@ exports.maildir = function(next, connection) {
   var stream = txn.message_stream;
   var spam_threshold = plugin.cfg.main.rspamd_spam_threshold;
 
-  var spam_score = 0
-  if (txn.header.headers_decoded['x-rspamd-score']) {
-    spam_score = txn.header.headers_decoded['x-rspamd-score'][0];
-  };
-
   var is_spam = false;
-  if (spam_score > spam_threshold) {
-    is_spam = true;
-  };
+  if (plugin.cfg.main.rspamd_move_to_spam) {
+    var spam_score = 0
+    if (txn.header.headers_decoded['x-rspamd-score']) {
+      spam_score = txn.header.headers_decoded['x-rspamd-score'][0];
+    };
+
+    if (spam_score > spam_threshold) {
+      is_spam = true;
+    };
+  }
 
   // Give the possibility to force the maildir user.
   // var forced = trim(txn.header.get('x-maildir-force-user')) || plugin.cfg.main.force_user;

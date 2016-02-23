@@ -49,6 +49,8 @@ exports.resolve_domain = function(next, connection, params) {
       //call `done()` to release the client back to the pool
       done();
 
+      (!txn) return next();
+
       if(err) {
         return next(DENY, DSN.relaying_denied);
       }
@@ -66,11 +68,6 @@ exports.resolve_domain = function(next, connection, params) {
 
 
   // basic checks
-  if (!txn) {
-    plugin.logdebug("txn: ", txn);
-    return next(DENY, DSN.addr_bad_from_syntax);
-  }
-
   if (!host) {
     plugin.logdebug("host: ", host);
     return next(DENY, DSN.addr_bad_from_syntax);

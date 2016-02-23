@@ -19,9 +19,18 @@ exports.register = function () {
                         " try installing it: npm install srs");
         return;
     }
-    plugin.srs = new plugin.SRS({secret: 'change this to something really secret!!!'});
+    plugin.load_srs_ini();
+    plugin.srs = new plugin.SRS({secret: plugin.cfg.main.secret});
     this.register_hook('data_post', 'srs_data_post');
     this.register_hook('bounce', 'srs_bounce');
+};
+
+
+exports.load_srs_ini = function() {
+  var plugin = this;
+  plugin.cfg = plugin.config.get('srs.ini', 'ini', function () {
+    plugin.load_srs_ini();
+  });
 };
 
 
@@ -67,7 +76,7 @@ exports.srs_data_post = function(next, connection, params) {
 
     if (trx.notes.has_alias) {
         var beforeSrsRewriteFrom = sender;
-        var afterSrsRewriteFrom = new Address(plugin.srs.rewrite(sender.user, sender.host), 'migadu.com');
+        var afterSrsRewriteFrom = new Address(plugin.srs.rewrite(sender.user, sender.host), plugin.cfg.main.sender_domain);
 
         trx.mail_from = afterSrsRewriteFrom;
 
