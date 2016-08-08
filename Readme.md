@@ -15,6 +15,11 @@ A few plugins to be used with haraka
 
 See docs folder for more information about the individual plugins.
 
+You also need to install the haraka address plugins:
+
+    npm install address-rfc2821
+    npm install address-rfc2822
+
 ## Postgres plugins
 
 ### Installation
