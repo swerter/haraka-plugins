@@ -16,7 +16,7 @@ exports.register = function () {
     }
     catch (e) {
         plugin.logerror("failed to load srs, " +
-                        " try installing it: npm install srs");
+                        " try installing it: npm install srs.js");
         return;
     }
     plugin.load_srs_ini();
